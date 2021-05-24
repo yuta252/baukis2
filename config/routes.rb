@@ -1,3 +1,29 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  config = Rails.application.config.baukis2
+  
+  constraints host: config[:staff][:host] do
+    namespace :staff, path: config[:staff][:path] do
+      root "top#index"
+      get "login" => "sessions#new", as: :login
+      resource :session, only: [:create, :destroy]
+      resource :account, except: [:new, :create, :destroy]
+    end
+  end
+
+  constraints host: config[:admin][:host] do
+    namespace :admin, path: config[:admin][:path] do
+      root "top#index"
+      get "login" => "sessions#new", as: :login
+      resource :session, only: [:create, :destroy]
+      resources :staff_members do
+        resources :staff_events, only: [:index]
+      end
+      resources :staff_events, only: [:index]
+    end
+  end
+
+  namespace :customer do
+    root "top#index"
+  end
 end
+

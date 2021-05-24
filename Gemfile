@@ -19,6 +19,8 @@ gem "kaminari"
 gem "date_validator"
 gem "valid_email2"
 gem "nokogiri"
+gem "slim"
+gem "html2slim"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

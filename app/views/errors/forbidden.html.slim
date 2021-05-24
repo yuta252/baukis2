@@ -1,0 +1,11 @@
+#error
+  h1
+    | 403 Forbidden
+  p
+    =
+    -       case @exception
+    -       when ApplicationController::IpAddressRejected
+    -         "Can not use from your IP address(#{request.ip})"
+    -       else
+    -         "You don't have any authorization to browze the designated pages"
+    -       end
