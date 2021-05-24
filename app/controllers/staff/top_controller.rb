@@ -1,6 +1,7 @@
-class Staff::TopController < ApplicationController
+class Staff::TopController < Staff::Base
+  skip_before_action :authorize
+
   def index
-    raise Forbidden
     render action: "index"
   end
 end
