@@ -23,22 +23,23 @@ h1
       th
         | アクション
     - @staff_members.each do |m|
+      - p = StaffMemberPresenter.new(m, self)
       tr
         td
-          = m.family_name 
+          = m.family_name
           = m.given_name
         td
-          = m.family_name_kana 
-          = m.given_name_kana 
-        td.email 
-          = m.email 
-        td.date 
+          = m.family_name_kana
+          = m.given_name_kana
+        td.email
+          = m.email
+        td.date
           = m.start_date.strftime("%Y/%m/%d")
-        td.date 
+        td.date
           = m.end_date.try(:strftime, "%Y/%m/%d")
-        td.boolean 
-          = m.suspended? ? raw("&#x2611;") : raw("&#x2610;")
-        td.actions 
+        td.boolean
+          = p.suspended_mark
+        td.actions
           = link_to "編集", [:edit, :admin, m]
           = link_to "Events", [:admin, m, :staff_events]
           = link_to "削除", [:admin, m], method: :delete, data: { confirm: "本当に削除しますか？" }
